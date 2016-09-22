@@ -1,10 +1,10 @@
 from lxml import html
 import requests
 import sys
-#from PyQt4.QtGui import *
-#from PyQt4.QtCore import *
-#from PyQt4.QtWebKit import *
-from PyQt4 import *
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
+from PyQt4.QtWebKit import *
+#from PyQt4 import *
 from datetime import datetime
 
 
@@ -48,17 +48,18 @@ def main():
                 food.append(index)
     return food
 
-
 def make_text(food):
-    print food
     output = []
     for event in food:
         event_time = event[0].text
         if datetime.strptime(event_time, '%I:%M %p').time() > datetime.now().time():
-            output.append(event[2][0].text) #event name
-            output.append(event[0].text)    #time
-            output.append(event[3][0].text) #place
+            event_new = []
+            event_new.append(event[2][0].text) #event name
+            event_new.append(event[0].text)    #time
+            event_new.append(event[3][0].text) #place
+            output.append(event_new)
     return output
 
-for text in make_text(main()):
-    print text
+f1=open('list of food.txt', 'w+')
+f1.write(str(make_text(main())))
+f1.close()
